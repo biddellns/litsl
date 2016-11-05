@@ -1,5 +1,5 @@
-fromseleniumimportwebdriver
-importunittest
+from selenium import webdriver
+import unittest
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
@@ -12,15 +12,19 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_display_home_page(self):
         self.browser.get('http://localhost:8000')
 
-        # Edennil checks out the cool website for the LiTStarleague
+        # Edennil checks out the cool website for the LiTStarleague.
         self.assertIn('LiTStarleague', self.browser.title)
 
-        # Edinnil checks to see the list of players in LITSL.
+        # Edennil checks to see the list of players in LITSL.
         player_list = self.find_elements_by_id("player_list")
         assertTrue(player_list.size > 0)
         
+        # Edennil clicks on a players name to pull up their detailed info.
 
-    if __name__ == '__main__':
+        # There's a link back to the main list of players.
+
+
+if __name__ == '__main__':
         unittest.main(warnings='ignore')
 
 

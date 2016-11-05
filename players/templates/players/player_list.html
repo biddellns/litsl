@@ -1,5 +1,15 @@
-<HTML>
-<body>
-	hi
-</body>
-</HTML>
+{% extends 'base.html' %}
+
+{% block content %}
+	<table> 
+	{% for player in players %}
+		<tr>
+			<td>{{player.bnet_name}}</td>	
+			<td>{{player.bnet_id}}</td>
+			<td>{{player.race}}</td>
+			<td>{{player.league}}</td>
+			<td><a href="{% url 'player_detail' player.id %}">Detail</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock %}

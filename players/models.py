@@ -31,4 +31,5 @@ class Player(models.Model):
     ladder_games_played = models.IntegerField(blank = True, null = True)
     team = models.CharField(max_length = 30)
 
-    
+    def __str__(self):
+        return '{}#{}'.format(self.bnet_name, self.bnet_id)
