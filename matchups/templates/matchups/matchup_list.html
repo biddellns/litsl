@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<table> 
+	{% for matchup in matchups %}
+		<tr>
+			<td>{{matchup.player1}}</td>	
+			<td>{{matchup.player2}}</td>
+			<td><a href="{% url 'matchup_detail' matchup.id %}">Detail</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock %}
