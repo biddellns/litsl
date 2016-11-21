@@ -14,7 +14,7 @@ class Matchup(models.Model):
 class Game(models.Model):
     player1 = models.ForeignKey(Player, related_name="game_player1")
     player2 = models.ForeignKey(Player, related_name="game_player2")
-    matchup = models.ForeignKey(Matchup)
+    matchup = models.ForeignKey(Matchup, related_name="games")
     player1_score = models.IntegerField()
     player2_score = models.IntegerField()
     map_name = models.CharField(max_length = 30)

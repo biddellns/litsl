@@ -1,0 +1,23 @@
+{% url 'games' as games %}
+{% url 'players' as players %}
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+
+		<!-- Navbar header / Brand image -->
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">
+				<img alt="LiT Starleague" src=""/>
+			</a>
+		</div>
+	
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="{{games}}">Games</a></li>
+				<li><a href="{{players}}">Players</a></li>
+			</ul>
+		</div>
+		
+	</div>
+</nav>

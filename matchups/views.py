@@ -15,6 +15,13 @@ class MatchupDetail(DetailView):
     template_name = 'matchups/matchup_detail.html'
     context_object_name = 'matchup'
 
+    def get_context_data(self, **kwargs):
+        context = super(MatchupDetail, self).get_context_data(**kwargs)
+        obj = self.get_object()
+        games = obj.games.all()
+        context['games'] = games
+        return context
+
 class GameList(ListView):
     model = Game
     template_name = 'game_list.html'

@@ -2,4 +2,8 @@
 
 {% block content %}
 	<p>{{matchup.player1}} Vs {{matchup.player2}}</p>
+
+	{% for game in games %}
+	<p> Game Number {{game.game_number}}: {{game.player1_score}} - {{game.player2_score}} <p>
+	{% endfor %}
 {% endblock %} 
