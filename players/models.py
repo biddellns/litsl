@@ -31,12 +31,20 @@ class Player(models.Model):
     ladder_games_played = models.IntegerField(blank = True, null = True)
     team = models.CharField(max_length = 30)
 
-    def get_total_games(self):
-        wins = 0
-        losses = 0
-        total_games = self.matchups_player1.count() + self.matchups_player2.count()
+    def get_total_matches(self):
+        total_matches = self.matchups_player1.count() + self.matchups_player2.count()
         
+        return total_matches
+
+    def get_total_games(self):
+        total_games = self.games_player1.count() + self.games_player2.count()
+
         return total_games
+
+    def get_matchup_record(self):
+        pass
+    def get_game_record(self):
+        pass
 
     def __str__(self):
         return '{}#{}'.format(self.bnet_name, self.bnet_id)

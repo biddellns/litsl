@@ -14,8 +14,8 @@ class Matchup(models.Model):
         return '{} Vs {}'.format(self.player1, self.player2)
 
 class Game(models.Model):
-    player1 = models.ForeignKey(Player, related_name="game_player1")
-    player2 = models.ForeignKey(Player, related_name="game_player2")
+    player1 = models.ForeignKey(Player, related_name="games_player1")
+    player2 = models.ForeignKey(Player, related_name="games_player2")
     matchup = models.ForeignKey(Matchup, related_name="games")
     player1_score = models.IntegerField()
     player2_score = models.IntegerField()

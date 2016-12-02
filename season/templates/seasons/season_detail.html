@@ -10,16 +10,18 @@
 		<div class="col-md-4">
 			<table class="table table-striped table-bordered">
 				<thead>
-					<tr><td class="text-center" colspan="2">{{group}}</td></tr>
+					<tr><td class="text-center" colspan="3">{{group}}</td></tr>
 					<tr>
 						<th>Player</th>
 						<th>Matches</th>
+						<th>Games</th>
 					<tr>
 				</thead>
 				<tbody>
 				{% for player in group.players.all %}
 					<tr>
 						<td>{{player}}</td>
+						<td>{{player.get_total_matches}}</td>
 						<td>{{player.get_total_games}}</td>
 					</tr>
 				{% endfor %}
