@@ -1,11 +1,13 @@
 from django.db import models
 
 from players.models import Player
+from season.models import Group
 # Create your models here.
 
 class Matchup(models.Model):
-    player1 = models.ForeignKey(Player, related_name="matchup_player1")
-    player2 = models.ForeignKey(Player, related_name="matchup_player2")
+    player1 = models.ForeignKey(Player, related_name="matchups_player1")
+    player2 = models.ForeignKey(Player, related_name="matchups_player2")
+    group = models.ForeignKey(Group, related_name="matchups", null=True)
     num_games = models.IntegerField()
 
     def __str__(self):

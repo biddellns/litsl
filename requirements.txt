@@ -1,0 +1,9 @@
+APScheduler==3.3.0
+Django==1.10.2
+Gecko==1.0.19
+pyserial==3.2.1
+pytz==2016.7
+requests==2.12.1
+selenium==3.0.1
+six==1.10.0
+tzlocal==1.3

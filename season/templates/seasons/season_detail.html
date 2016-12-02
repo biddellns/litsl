@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> Season {{season.season_number}} </h1>
+<h2> {{season.group_rounds.last }}</h2>
+<div class="container-fluid">
+	<div class="row">
+		{% for group in groups %}
+		<div class="col-md-4">
+			<strong>{{group}}</strong>
+			{% for player in group.players.all %}
+				<p> {{player}} </p>
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
