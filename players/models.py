@@ -42,9 +42,50 @@ class Player(models.Model):
         return total_games
 
     def get_matchup_record(self):
-        pass
+        wins = 0
+        losses = 0
+
+        for match in self.matchups_player1.all():
+            if match.match_winner() is self:
+                wins += 1
+            else:
+                losses += 1
+
+        for match in self.matchups_player2.all():
+            if match.match_winner() is self:
+                wins += 1
+            else:
+                losses += 1
+
+        record = {
+                'wins': wins,
+                'losses': losses,
+                }
+
+        return record
+
     def get_game_record(self):
-        pass
+        wins = 0
+        losses = 0
+
+        for game in self.games_player1.all():
+            if game.game_winner() is not None:
+                if game.game_winner() is self:
+                    wins += 1
+                else:
+                    losses += 1
+        
+        for game in self.games_player2.all():
+            if game.game_winner() is not None:
+                if game.game_winner() is self:
+                    wins += 1
+                else:
+                    losses += 1
+        record = {
+                'wins': wins,
+                'losses': losses
+                }
+        return record
 
     def __str__(self):
         return '{}#{}'.format(self.bnet_name, self.bnet_id)

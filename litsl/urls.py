@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+import debug_toolbar
 urlpatterns = [
+    url(r'^__debug__/', include(debug_toolbar.urls)), # Strictly for development
     url(r'^admin/', admin.site.urls),
     url(r'^players/', include('players.urls')),
     url(r'^matchups/', include('matchups.urls')),

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load dictionary_extras %}
 
 {% block content %}
 
@@ -13,16 +14,16 @@
 					<tr><td class="text-center" colspan="3">{{group}}</td></tr>
 					<tr>
 						<th>Player</th>
-						<th>Matches</th>
-						<th>Games</th>
+						<th>Matchup W/L</th>
+						<th>Game W/L</th>
 					<tr>
 				</thead>
 				<tbody>
 				{% for player in group.players.all %}
 					<tr>
 						<td>{{player}}</td>
-						<td>{{player.get_total_matches}}</td>
-						<td>{{player.get_total_games}}</td>
+						<td>{% record_print player.get_matchup_record %}</td>
+						<td>{% record_print player.get_game_record %}</td>
 					</tr>
 				{% endfor %}
 				</tbody>
