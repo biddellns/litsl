@@ -46,16 +46,21 @@ class Player(models.Model):
         losses = 0
         
         for match in self.matchups_player1.all():
-            if match.match_winner() is self:
-                wins += 1
-            else:
-                losses += 1
+            winner = match.match_winner()
+            if winner is not None: # If the match isn't completed.
+                if winner is self:
+                    wins += 1
+                else:
+                    losses += 1
 
         for match in self.matchups_player2.all():
-            if match.match_winner() is self:
-                wins += 1
-            else:
-                losses += 1
+            winner = match.match_winner()
+
+            if winner is not None: # If the match isn't completed.
+                if match.match_winner() is self:
+                    wins += 1
+                else:
+                    losses += 1
 
         record = {
                 'wins': wins,

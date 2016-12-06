@@ -36,10 +36,12 @@
 					</tr>
 				</thead>
 				<tbody>
+					{% for matchup in group.matchups.all %}
 					<tr>
-						<td> </td>
-						<td> </td>					
+						<td>{{matchup}} </td>
+						<td>TBD </td>					
 					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>

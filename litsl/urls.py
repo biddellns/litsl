@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^__debug__/', include(debug_toolbar.urls)), # Strictly for development
     url(r'^admin/', admin.site.urls),
     url(r'^players/', include('players.urls')),
-    url(r'^matchups/', include('matchups.urls')),
+#    url(r'^matchups/', include('matchups.urls')),
     url(r'^seasons/', include('season.urls')),
 #    url(r'^$', include('season.urls')),
 ]
