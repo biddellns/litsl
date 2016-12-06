@@ -44,7 +44,7 @@ class Player(models.Model):
     def get_matchup_record(self):
         wins = 0
         losses = 0
-
+        
         for match in self.matchups_player1.all():
             if match.match_winner() is self:
                 wins += 1

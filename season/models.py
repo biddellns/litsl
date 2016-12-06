@@ -21,6 +21,17 @@ class Group(models.Model):
     group_round = models.ForeignKey(GroupRound, related_name="groups")
     players = models.ManyToManyField(Player)
 
+    def create_group_schedule(self):
+        players = self.players.all()
+        schedule = ""
+
+        for i in range(len(players)):
+            for j in range(i + 1, len(players)):
+                Matchup(player1 = players[i], player2 = players[j], group = self.pk, num_games=3).save()
+                #schedule += str(players[i]) + " vs " + str(players[j]) + "\n"
+
+        return schedule
+
     def __str__(self):
         return self.group_name
 
