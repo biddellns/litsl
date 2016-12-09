@@ -45,7 +45,7 @@ class Player(models.Model):
         wins = 0
         losses = 0
         
-        for match in self.matchups_player1.all():
+        for match in self.matchups_player1.iterator():
             winner = match.match_winner()
             if winner is not None: # If the match isn't completed.
                 if winner is self:
@@ -53,7 +53,7 @@ class Player(models.Model):
                 else:
                     losses += 1
 
-        for match in self.matchups_player2.all():
+        for match in self.matchups_player2.iterator():
             winner = match.match_winner()
 
             if winner is not None: # If the match isn't completed.

@@ -19,7 +19,7 @@
 					<tr>
 				</thead>
 				<tbody>
-				{% for player in group.players.all %}
+				{% for player in group.players.select_related.all %}
 					<tr>
 						<td>{{player}}</td>
 						<td>{% record_print player.get_matchup_record %}</td>

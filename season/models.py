@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from django.contrib import admin
 
 from players.models import Player
 
@@ -30,6 +31,16 @@ class Group(models.Model):
             for i in range(len(players)):
                 for j in range(i + 1, len(players)):
                     Matchup(player1 = players[i], player2 = players[j], group = self, num_games=3).save()
+            self.schedule_is_set = True
+            self.save()
+    
+    def delete_group_schedule(self):
+        if self.schedule_is_set:
+            for mu in self.matchups.iterator():
+                mu.delete()
+            
+            self.schedule_is_set = False
+            self.save()
 
     def __str__(self):
         return self.group_name

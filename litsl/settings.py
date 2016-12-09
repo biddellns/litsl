@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'players',
 #    'matchups',
     'season',
+    'widget_tweaks',
     'debug_toolbar',
 ]
 

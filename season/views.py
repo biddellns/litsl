@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import DetailView, FormView
 
 from .models import Season
 
@@ -47,14 +47,7 @@ class SeasonDetail(DetailView):
         context = super(SeasonDetail, self).get_context_data(**kwargs)
         obj = self.get_object()
         group_round = obj.group_rounds.last()
-        groups = group_round.groups.all()
+        groups = group_round.groups.all().prefetch_related('players')
         context['groups'] = groups
-
-        # Check if schdule is set for groups.
-        for group in groups:
-            if not group.schedule_is_set:
-               group.create_group_schedule()
-               group.schedule_is_set = True
-               group.save()
 
         return context
