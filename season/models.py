@@ -30,7 +30,19 @@ class Group(models.Model):
 
             for i in range(len(players)):
                 for j in range(i + 1, len(players)):
-                    Matchup(player1 = players[i], player2 = players[j], group = self, num_games=3).save()
+                    Matchup(
+                            player1 = players[i], 
+                            player2 = players[j], 
+                            group = self, 
+                            num_games=3
+                            ).save()
+                    
+                    # Hack to get the recently saved MU.
+                    mu = Matchup.objects.last()
+
+                    # Create the games making up the 'Best of X'.
+                    mu.create_game_sets()
+
             self.schedule_is_set = True
             self.save()
             return True
@@ -60,7 +72,7 @@ class Matchup(models.Model):
     group = models.ForeignKey(Group, related_name="matchups", null=True)
     num_games = models.IntegerField() # Best of X
 
-    # Currently making the dangerous assumption that there isn't a tie.
+    # Currently making the dangerous assumption that all games will be recorded.
     def match_winner(self):
         player1_wins = self.games.aggregate(Sum('player1_score'))['player1_score__sum'] or 0
         player2_wins = self.games.aggregate(Sum('player2_score'))['player2_score__sum'] or 0
@@ -71,6 +83,14 @@ class Matchup(models.Model):
             return self.player2
         else:
             return None
+
+    def create_game_sets(self):
+        for i in range(1, self.num_games + 1):
+            self.games.create(
+            player1 = self.player1,
+            player2 = self.player2,
+            game_number = i
+            )
 
 
     def __str__(self):
