@@ -33,14 +33,20 @@ class Group(models.Model):
                     Matchup(player1 = players[i], player2 = players[j], group = self, num_games=3).save()
             self.schedule_is_set = True
             self.save()
+            return True
+        else:
+            return False
     
     def delete_group_schedule(self):
         if self.schedule_is_set:
             for mu in self.matchups.iterator():
                 mu.delete()
-            
             self.schedule_is_set = False
             self.save()
+            return True
+        else:
+            return False
+            
 
     def __str__(self):
         return self.group_name
