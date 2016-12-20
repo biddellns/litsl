@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'players',
-#    'matchups',
     'season',
     'widget_tweaks',
     'debug_toolbar',

@@ -21,11 +21,12 @@ RACES = (
 class Player(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, blank = True, null = True) # Connects a site SC2 profile to a Django User object.
 
-    bnet_name = models.CharField(max_length = 30)
-    bnet_id = models.IntegerField()
-    bnet_profile_url = models.URLField()
-    sc2_name = models.CharField(max_length = 30)
-    sc2_id = models.IntegerField()
+    bnet_name = models.CharField("Battle.net Username", max_length = 30)
+    bnet_id = models.IntegerField("Battle.net ID")
+    bnet_profile_url = models.URLField("Battle.net Profile URL")
+    discord_name = models.CharField("Discord Username", max_length = 30)
+    sc2_name = models.CharField(max_length = 30, null = True)
+    sc2_id = models.IntegerField(null = True)
     league = models.CharField(max_length = 1, choices = LEAGUE_LEVELS)
     race = models.CharField(max_length = 1, choices = RACES)
     ladder_games_played = models.IntegerField(blank = True, null = True)
