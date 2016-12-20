@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import RegexValidator
 
 # Create your models here.
 LEAGUE_LEVELS = (
@@ -23,7 +24,14 @@ class Player(models.Model):
 
     bnet_name = models.CharField("Battle.net Username", max_length = 30)
     bnet_id = models.IntegerField("Battle.net ID")
-    bnet_profile_url = models.URLField("Battle.net Profile URL")
+    bnet_profile_url = models.URLField("Battle.net Profile URL",
+            validators = [
+                    RegexValidator(
+                        regex='(http(s)?:\/\/)?[eu|na|kr]\.battle.net\/sc2\/(en)\/profile\/\d{6,7}\/\d\/\w+\/$',
+                        message='This doesn\'t appear to be a valid profile link.'
+                        ),
+                ]
+            )
     discord_name = models.CharField("Discord Username", max_length = 30)
     sc2_name = models.CharField(max_length = 30, null = True)
     sc2_id = models.IntegerField(null = True)
