@@ -28,7 +28,8 @@ class Player(models.Model):
             validators = [
                     RegexValidator(
                         regex='(http(s)?:\/\/)?[eu|na|kr]\.battle.net\/sc2\/(en)\/profile\/\d{6,7}\/\d\/\w+\/$',
-                        message='This doesn\'t appear to be a valid profile link.'
+                        message="This doesn't appear to be a valid profile link.",
+                        code='Invalid URL'
                         ),
                 ]
             )
