@@ -1,4 +1,4 @@
-{% url 'game_list' as games %}
+{% url 'season_schedule_default' as schedule %}
 {% url 'player_list' as players %}
 {% url 'season_detail_default' as season %}
 
@@ -16,7 +16,7 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav nav-tabs">
 				<li><a href="{{season}}">Season</a></li>
-				<li><a href="{{games}}">Games</a></li>
+				<li><a href="{{schedule}}">Schedule</a></li>
 				<li><a href="{{players}}">Players</a></li>
 			</ul>
 		</div>
