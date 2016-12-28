@@ -1,6 +1,7 @@
 {% url 'season_schedule_default' as schedule %}
 {% url 'player_list' as players %}
 {% url 'season_detail_default' as season %}
+{% url 'rules' as rules %}
 
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
@@ -17,6 +18,7 @@
 			<ul class="nav nav-tabs">
 				<li><a href="{{season}}">Season</a></li>
 				<li><a href="{{schedule}}">Schedule</a></li>
+				<li><a href="{{rules}}">Rules</a></li>
 				<li><a href="{{players}}">Players</a></li>
 			</ul>
 		</div>

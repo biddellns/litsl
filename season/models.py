@@ -84,6 +84,7 @@ class Matchup(models.Model):
         else:
             return None
 
+    # Create games based on how many are specified in the num_games field.
     def create_game_sets(self):
         for i in range(1, self.num_games + 1):
             self.games.create(

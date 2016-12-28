@@ -27,7 +27,7 @@ class Player(models.Model):
     bnet_profile_url = models.URLField("Battle.net Profile URL",
             validators = [
                     RegexValidator(
-                        regex='(http(s)?:\/\/)?(eu|na|kr)\.battle.net\/sc2\/(en)\/profile\/\d{6,7}\/\d\/\w+\/$',
+                        regex='^(http(s)?:\/\/)?(eu|us|kr)\.battle.net\/sc2\/(en)\/profile\/\d{6,7}\/\d\/\w+\/$',
                         message="This doesn't appear to be a valid profile link.",
                         code='Invalid URL'
                         ),
@@ -51,23 +51,25 @@ class Player(models.Model):
 
         return total_games
 
-    def get_matchup_record(self):
+    def get_matchup_record(self, *args):
         wins = 0
         losses = 0
         
-        for match in self.matchups_player1.iterator():
+        if args: # If a group wasn't specified, return a value of -1.
+            _group = args[0].pk 
+        else:
+            _group = -1
+
+        if _group == -1:
+            matchups = self.matchups_player1.all() | self.matchups_player2.all()
+        else:
+            # If a group was specified, find all the matchups in the group where this player played in.
+            matchups = self.matchups_player1.filter(group = _group) | self.matchups_player2.filter(group=_group)
+       
+        for match in matchups:
             winner = match.match_winner()
             if winner is not None: # If the match isn't completed.
                 if winner is self:
-                    wins += 1
-                else:
-                    losses += 1
-
-        for match in self.matchups_player2.iterator():
-            winner = match.match_winner()
-
-            if winner is not None: # If the match isn't completed.
-                if match.match_winner() is self:
                     wins += 1
                 else:
                     losses += 1
@@ -78,28 +80,40 @@ class Player(models.Model):
                 }
 
         return record
-
-    def get_game_record(self):
+    
+    def get_game_record(self, *args):
         wins = 0
         losses = 0
+        games = []
 
-        for game in self.games_player1.all():
+        if args: # If a group wasn't specified, return a value of -1.
+            _group = args[0].pk
+        else:
+            _group = -1
+
+        if _group == -1:
+            matchups = self.matchups_player1.all()  | self.matchups_player2.all()
+        else:
+            # If a group was specified, find all the matchups in the group where this player played in. Used to find all related games.
+            matchups = self.matchups_player1.filter(group = _group) | self.matchups_player2.filter(group = _group)
+
+        # Create the set of games from the list of matchups.
+        for matchup in matchups:
+            for game in matchup.games.all():
+                games.append(game)
+
+        for game in games:
             if game.game_winner() is not None:
                 if game.game_winner() is self:
                     wins += 1
                 else:
                     losses += 1
-        
-        for game in self.games_player2.all():
-            if game.game_winner() is not None:
-                if game.game_winner() is self:
-                    wins += 1
-                else:
-                    losses += 1
+
         record = {
                 'wins': wins,
                 'losses': losses
                 }
+
         return record
 
     def __str__(self):

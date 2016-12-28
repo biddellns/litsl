@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import SeasonDetail, ScheduleList
+from .views import SeasonDetail, ScheduleList, RulesView
 urlpatterns = [
         url(r'^$', SeasonDetail.as_view(), 
             name='season_detail_default'),
@@ -10,5 +10,7 @@ urlpatterns = [
             name="season_schedule"),
         url(r'^schedule/$', ScheduleList.as_view(),
             name="season_schedule_default"),
+        url(r'^rules/$', RulesView.as_view(),
+            name="rules"),
 #        url(r'^(?P<pk>[0-9]+)/$', PlayerDetail.as_view(), name='player_detail'),            
         ]

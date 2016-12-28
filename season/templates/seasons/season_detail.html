@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load dictionary_extras %}
+{% load season_extras %}
 
 {% block content %}
 
@@ -20,10 +20,12 @@
 				</thead>
 				<tbody>
 				{% for player in group.players.select_related.all %}
+					{% group_matchup_record player group as matchup_record %}
+					{% group_game_record player group as game_record %}
 					<tr>
 						<td>{{player}}</td>
-						<td>{% record_print player.get_matchup_record %}</td>
-						<td>{% record_print player.get_game_record %}</td>
+						<td>{% record_print matchup_record %}</td>
+						<td>{% record_print game_record %}</td>
 					</tr>
 				{% endfor %}
 				</tbody>

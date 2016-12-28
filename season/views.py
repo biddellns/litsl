@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView, FormView
-
+from django.views.generic import DetailView, ListView, FormView, TemplateView
 from .models import Season, GroupRound
 
 # Create your views here.
@@ -99,3 +98,5 @@ class ScheduleList(DetailView):
         context["groups"] = groups
 
         return context
+class RulesView(TemplateView):
+    template_name = 'seasons/rules.html'
