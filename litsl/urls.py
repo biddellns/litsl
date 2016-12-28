@@ -22,5 +22,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^players/', include('players.urls')),
     url(r'^season/', include('season.urls')),
-#    url(r'^$', include('season.urls')),
 ]
