@@ -42,14 +42,10 @@ class Player(models.Model):
     team = models.CharField(max_length = 30)
 
     def get_total_matches(self):
-        total_matches = self.matchups_player1.count() + self.matchups_player2.count()
-        
-        return total_matches
+        return self.matchups_player1.count() | self.matchups_player2.count()
 
     def get_total_games(self):
-        total_games = self.games_player1.count() + self.games_player2.count()
-
-        return total_games
+        return self.games_player1.count() | self.games_player2.count()
 
     def get_matchup_record(self, *args):
         wins = 0
@@ -69,7 +65,7 @@ class Player(models.Model):
         for match in matchups:
             winner = match.match_winner()
             if winner is not None: # If the match isn't completed.
-                if winner is self:
+                if winner == self:
                     wins += 1
                 else:
                     losses += 1
@@ -103,8 +99,9 @@ class Player(models.Model):
                 games.append(game)
 
         for game in games:
-            if game.game_winner() is not None:
-                if game.game_winner() is self:
+            winner = game.game_winner()
+            if winner is not None:
+                if winner == self:
                     wins += 1
                 else:
                     losses += 1
