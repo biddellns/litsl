@@ -19,7 +19,7 @@
 					<tr>
 				</thead>
 				<tbody>
-				{% for player in group.players.select_related.all %}
+				{% for player in group.players.select_related.all|group_order %}
 					{% group_matchup_record player group as matchup_record %}
 					{% group_game_record player group as game_record %}
 					<tr>

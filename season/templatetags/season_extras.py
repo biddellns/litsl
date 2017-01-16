@@ -6,6 +6,10 @@ register = template.Library()
 def access(dictionary, key):
     return dictionary[key]
 
+@register.filter
+def group_order(group_players):
+    return sorted(group_players, key = lambda p: (p.get_wins(), p.get_total_games()), reverse=True)
+
 @register.simple_tag
 def group_matchup_record(player, group):
     return player.get_matchup_record(group)

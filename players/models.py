@@ -41,20 +41,25 @@ class Player(models.Model):
     ladder_games_played = models.IntegerField(blank = True, null = True)
     team = models.CharField(max_length = 30)
 
-    def get_total_matches(self):
-        return self.matchups_player1.count() | self.matchups_player2.count()
+    def get_total_games(self, *args):
+        record = self.get_game_record(args)
+        return record['wins'] + record['losses']
 
-    def get_total_games(self):
-        return self.games_player1.count() | self.games_player2.count()
+
+    def get_wins(self, *args):
+        return self.get_game_record(args)['wins']
+
+    def get_losses(self, *args):
+        return self.get_game_record(args)['losses']
 
     def get_matchup_record(self, *args):
         wins = 0
         losses = 0
         
-        if args: # If a group wasn't specified, return a value of -1.
-            _group = args[0].pk 
+        if not args or args[0] == (): # If a group wasn't specified, return a value of -1.
+            _group = -1 
         else:
-            _group = -1
+            _group = args[0].pk 
 
         if _group == -1:
             matchups = self.matchups_player1.all() | self.matchups_player2.all()
@@ -82,10 +87,10 @@ class Player(models.Model):
         losses = 0
         games = []
 
-        if args: # If a group wasn't specified, return a value of -1.
-            _group = args[0].pk
+        if not args or args[0] == (): # If a group wasn't specified, return a value of -1.
+            _group = -1 
         else:
-            _group = -1
+            _group = args[0].pk 
 
         if _group == -1:
             matchups = self.matchups_player1.all()  | self.matchups_player2.all()
