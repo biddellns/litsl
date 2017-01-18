@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'players',
     'season',
     'widget_tweaks',
-    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'litsl.urls'
@@ -127,8 +125,3 @@ STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "static"),
         'static/',
         ]
-
-# Internal IPs for django_debug_toolbar
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
