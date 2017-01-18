@@ -1,16 +1,12 @@
-# settings/local.py
+# settings/staging.py
 
 import os
 
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
-INSTALLED_APPS += ("debug_toolbar", )
-
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware', )
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] #os.environ["ALLOWED_HOSTS"]
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -31,12 +27,8 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "static"),
         'static/',
         ]
-
-# Internal IPs for django_debug_toolbar
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
