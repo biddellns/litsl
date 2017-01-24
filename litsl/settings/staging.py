@@ -32,3 +32,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, '..','static/')
  #       os.path.join(BASE_DIR, "static"),
  #       'static/',
  #       ]
+
+# Django Deployment 
+CONN_MAX_AGE = 60 # Keep database connection alive for 60 seconds.
+
+# Extra security settings
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
+X_FRAME_OPTIONS = 'DENY'
+
