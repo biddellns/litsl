@@ -6,7 +6,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] #os.environ["ALLOWED_HOSTS"]
+ALLOWED_HOSTS = #os.environ["ALLOWED_HOSTS"]
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
