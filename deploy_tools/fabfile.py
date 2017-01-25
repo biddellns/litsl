@@ -10,7 +10,7 @@ def deploy():
 		source_folder = site_folder + '/source'
 		_create_directory_structure(site_folder)
 		_get_latest_source(source_folder)
-		# _update_settings(source_folder, env.host) 
+		_update_settings(source_folder, env.host) 
 		_update_virtualenv(env.user, VENV_NAME, source_folder)
 	        #_update_static_files(source_folder, env.user, VENV_NAME)
 		# _update_database(source_folder)
@@ -35,8 +35,8 @@ def _update_settings(source_folder, site_name):
     # For staging
     settings_path = source_folder + '/litsl/settings/staging.py'
     sed(settings_path,
-            "ALLOWED_HOSTS =.+$",
-            "ALLOWED_HOSTS = ['{0}', 'www.{0}']".format(site_name)
+            'ALLOWED_HOSTS =.+$',
+            'ALLOWED_HOSTS = ["{0}", "www.{0}"]'.format(site_name)
         )
 
 def _update_virtualenv(env_user, venv_name, source_folder):
