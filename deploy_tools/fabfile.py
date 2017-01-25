@@ -12,7 +12,7 @@ def deploy():
 		_get_latest_source(source_folder)
 		# _update_settings(source_folder, env.host) 
 		_update_virtualenv(env.user, VENV_NAME, source_folder)
-		_update_static_files(source_folder, env.user, VENV_NAME)
+	        #_update_static_files(source_folder, env.user, VENV_NAME)
 		# _update_database(source_folder)
 
 def _create_directory_structure(site_folder):
