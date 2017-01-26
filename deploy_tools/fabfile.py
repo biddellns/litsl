@@ -6,11 +6,11 @@ REPO_URL = 'https://github.com/biddellns/litsl.git'
 VENV_NAME = 'litsl-staging'
 
 def deploy():
-		site_folder = 'home/{0}/sites/litsl_com_fab'.format(env.user)  
+		site_folder = '/home/{0}/sites/litsl_com_fab'.format(env.user)  
 		source_folder = site_folder + '/source'
 		_create_directory_structure(site_folder)
 		_get_latest_source(source_folder)
-		_update_settings(source_folder, env.host) 
+		_update_settings(source_folder, env.domain) 
 		_update_virtualenv(env.user, VENV_NAME, source_folder)
 	        #_update_static_files(source_folder, env.user, VENV_NAME)
 		# _update_database(source_folder)
@@ -31,12 +31,12 @@ def _get_latest_source(source_folder):
     latest_commit = local("git log -n 1 --format=%H", capture=True)
     run('cd {0} && git reset --hard {1}'.format(source_folder, latest_commit))
 
-def _update_settings(source_folder, site_name):
+def _update_settings(source_folder, domain):
     # For staging
     settings_path = source_folder + '/litsl/settings/staging.py'
     sed(settings_path,
-            'ALLOWED_HOSTS =.+$',
-            'ALLOWED_HOSTS = ["{0}", "www.{0}"]'.format(site_name)
+            'ALLOWED_HOSTS = .+$',
+            'ALLOWED_HOSTS = ["{0}", "www.{0}"]'.format(domain)
         )
 
 def _update_virtualenv(env_user, venv_name, source_folder):
