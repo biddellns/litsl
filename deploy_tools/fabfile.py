@@ -8,14 +8,13 @@ VENV_NAME = 'litsl-staging'
 def deploy():
     site_folder = '/home/{0}/sites/litsl_com_fab'.format(env.user)
     source_folder = site_folder + '/source'
+
     _create_directory_structure(site_folder)
     _get_latest_source(source_folder)
     _update_settings(source_folder, env.domain)
     _update_virtualenv(env.user, VENV_NAME, source_folder)
     _update_static_files(source_folder, env.user, VENV_NAME)
-
-
-# _update_database(source_folder)
+    _update_database_migrations(source_folder, env.user, VENV_NAME)
 
 def _create_directory_structure(site_folder):
     for subfolder in ('static', 'source'):
@@ -58,5 +57,15 @@ def _update_virtualenv(env_user, venv_name, source_folder):
 
 def _update_static_files(source_folder, env_user, venv_name):
     run(
-        'workon {2} && cd {0} && /home/{1}/.virtualenvs/{2}/bin/python3 manage.py collectstatic --noinput'
+        'workon {2} && cd {0} && /home/{1}/.virtualenvs/{2}/bin/python3 manage.py collectstatic --noinput && deactivate'
         .format(source_folder, env_user, venv_name))
+
+def _update_database_migrations(source_folder, env_user, venv_name):
+    # Run makemigrations
+    run('workon {2} && cd {0} && /home/{1}/.virtualenvs/{2}/bin/python3 manage.py makemigrations --noinput'
+        .format(source_folder, env_user, venv_name))
+
+    # Run migrate
+    run('workon {2} && cd {0} && /home/{1}/.virtualenvs/{2}/bin/python3 manage.py migrate --noinput'
+        .format(source_folder, env_user, venv_name))
+
