@@ -37,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'players',
     'season',
     'widget_tweaks',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.battlenet',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -69,6 +74,13 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
 
 WSGI_APPLICATION = 'litsl.wsgi.application'
 
@@ -125,3 +137,6 @@ STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "static"),
         'static/',
         ]
+
+# For allauth
+SITE_ID = 2
