@@ -139,4 +139,4 @@ STATICFILES_DIRS = [
         ]
 
 # For allauth
-SITE_ID = 2
+SITE_ID = 1

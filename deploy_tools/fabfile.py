@@ -3,15 +3,15 @@ from fabric.api import env, local, run
 
 REPO_URL = 'https://github.com/biddellns/litsl.git'
 VENV_NAME = 'litsl-staging'
-
+DOMAIN = 'nicbiddell.com'
 
 def deploy():
-    site_folder = '/home/{0}/sites/litsl_com_fab'.format(env.user)
+    site_folder = '/home/{0}/sites/litsl_com'.format(env.user)
     source_folder = site_folder + '/source'
 
     _create_directory_structure(site_folder)
     _get_latest_source(source_folder)
-    _update_settings(source_folder, env.domain)
+    _update_settings(source_folder, DOMAIN)
     _update_virtualenv(env.user, VENV_NAME, source_folder)
     _update_static_files(source_folder, env.user, VENV_NAME)
     _update_database_migrations(source_folder, env.user, VENV_NAME)
