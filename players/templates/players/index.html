@@ -1,9 +1,13 @@
+{% load account %}
+
 {% extends 'base.html' %}
 
 {% block content %}
 
 {% if user.is_authenticated %}
-	<h1> Welcome </h1>
+<h1> Welcome {% user_display %}</h1>
+
+<h3> Sign up for season 7 </h3>
 {% else %}
 	<h1> Sign in to see stuff </h1>
 {% endif %}
