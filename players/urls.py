@@ -1,8 +1,10 @@
 from django.conf.urls import url
 
-from .views import PlayerList, PlayerDetail, SignUpForm
+from .views import HomePage, PlayerList, PlayerDetail, SignUpForm
 urlpatterns = [
-        url(r'^$', PlayerList.as_view(),
+        url(r'^$', HomePage.as_view(),
+            name='home'),
+        url(r'^list$', PlayerList.as_view(),
             name='player_list'),
         url(r'signup/$', SignUpForm.as_view(),
             name="signup"),

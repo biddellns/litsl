@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 
 from .models import Player
 from .forms import PlayerForm
 
 # Create your views here.
+class HomePage(TemplateView):
+    template_name = 'players/index.html'
+
 class PlayerList(ListView):
     model = Player
     template_name = 'player_list.html'

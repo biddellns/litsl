@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^players/', include('players.urls')),
     url(r'^season/', include('season.urls')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^$', include('players.urls')),
 ]
