@@ -143,6 +143,9 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "/"
 
+ACCOUNT_USERNAME_VALIDATORS="socialaccount.providers.battlenet.validators.BattletagUsernameValidator"
+
+# Logging because debugging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
