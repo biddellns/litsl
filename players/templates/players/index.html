@@ -1,11 +1,11 @@
-{% load account %}
-
 {% extends 'base.html' %}
+
+{% load account %}
 
 {% block content %}
 
 {% if user.is_authenticated %}
-<h1> Welcome {% user_display %}</h1>
+<h1> Welcome {% user_display user %}</h1>
 
 <h3> Sign up for season 7 </h3>
 {% else %}
