@@ -1,7 +1,10 @@
+{% load socialaccount %}
+
 {% url 'season_schedule' as schedule %}
 {% url 'player_list' as players %}
 {% url 'season_detail' as season %}
 {% url 'rules' as rules %}
+{% url 'account_logout' as logout %}
 
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
@@ -25,10 +28,10 @@
 				
 				<!-- Greeting and login/logout button -->
 				{% if user.is_authenticated %}
-					<div>{{user}}</div>
-					<div><a role="button" class="btn btn-danger" href="/accounts/logout">Logout</a></div>
+					<span>{{user}}</span>
+					<span><a role="button" class="btn btn-danger" href="{{logout}}">Logout</a></span>
 				{% else %}
-					<div><a role="button" class="btn btn-primary" href="/accounts/login">Login with Battle.net!</a></div>					
+				<div><a role="button" class="btn btn-primary" href="{% provider_login_url "battlenet" %}">Login with Battle.net!</a></div>					
 				{% endif %}
 				</div>
 			</ul>
