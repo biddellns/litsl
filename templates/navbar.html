@@ -16,12 +16,24 @@
 		<!-- Navbar links -->
 		<div class="collapse navbar-collapse">
 			<ul class="nav nav-tabs">
-				<li><a href="{{season}}">Season</a></li>
-				<li><a href="{{schedule}}">Schedule</a></li>
-				<li><a href="{{rules}}">Rules</a></li>
-				<li><a href="{{players}}">Players</a></li>
+				<li><a role="button" href="{{season}}">Season</a></li>
+				<li><a role="button" href="{{schedule}}">Schedule</a></li>
+				<li><a role="button" href="{{rules}}">Rules</a></li>
+				<li><a role="button" href="{{players}}">Players</a></li>
+				
+				<div class="pull-right">
+				
+				<!-- Greeting and login/logout button -->
+				{% if user.is_authenticated %}
+					<div>{{user}}</div>
+					<div><a role="button" class="btn btn-danger" href="/accounts/logout">Logout</a></div>
+				{% else %}
+					<div><a role="button" class="btn btn-primary" href="/accounts/login">Login with Battle.net!</a></div>					
+				{% endif %}
+				</div>
 			</ul>
 		</div>
+
 		
 	</div>
 </nav>
