@@ -29,9 +29,9 @@
 				<!-- Greeting and login/logout button -->
 				{% if user.is_authenticated %}
 					<span>{{user}}</span>
-					<span><a role="button" class="btn btn-danger" href="{{logout}}">Logout</a></span>
+					<span><a role="button" class="btn btn-danger" href="{{logout}}?next={{request.path}}">Logout</a></span>
 				{% else %}
-				<div><a role="button" class="btn btn-primary" href="{% provider_login_url "battlenet" %}">Login with Battle.net!</a></div>					
+				<div><a role="button" class="btn btn-primary" href="{% provider_login_url "battlenet" %}?next={{request.path}}">Login with Battle.net!</a></div>					
 				{% endif %}
 				</div>
 			</ul>

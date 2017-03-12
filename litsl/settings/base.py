@@ -141,8 +141,6 @@ STATICFILES_DIRS = [
 # For allauth
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = "/"
-
 ACCOUNT_USERNAME_VALIDATORS="socialaccount.providers.battlenet.validators.BattletagUsernameValidator"
 
 # Logging because debugging
