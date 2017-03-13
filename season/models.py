@@ -2,14 +2,26 @@ from django.db import models
 from django.db.models import Sum
 from django.contrib import admin
 
+from singleactiveobject.models import SingleActiveObjectMixin
+
 from players.models import Player
 
-# Create your models here.
-class Season(models.Model):
-   season_number = models.AutoField(primary_key=True)
 
-   def __str__(self):
-       return "Season {}".format(self.season_number)
+
+SEASON_STATES = (
+        ('pre', 'Preseason'),
+        ('reg', 'Regular Season'),
+        ('post', 'Playoffs'),
+        ('comp', 'Complete'),
+        )
+
+# Create your models here.
+class Season(SingleActiveObjectMixin, models.Model):
+    season_number = models.IntegerField(unique=True, null = False)
+    state = models.CharField(max_length = 4, choices = SEASON_STATES)   
+
+    def __str__(self):
+        return "Season {}".format(self.season_number)
    
 class GroupRound(models.Model):
     season = models.ForeignKey(Season, related_name="group_rounds")

@@ -32,7 +32,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Season',
             fields=[
-                ('season_number', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('season_number', models.IntegerField(unique=True, serialize=False)),
             ],
         ),
         migrations.AddField(
