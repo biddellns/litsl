@@ -32,9 +32,11 @@ class SeasonDetail(DetailView):
             queryset = queryset.filter(**{slug_field: slug})    
         # If none of those are defined, it's an error.
         if pk is None and slug is None:
-            raise AttributeError("Generic detail view %s must be called with "
-                                "either an object pk or a slug."
-                                % self.__class__.__name__)
+            self.template_name='seasons/no-active-season.html'
+            return
+            #raise AttributeError("Generic detail view %s must be called with "
+            #                    "either an object pk or a slug."
+            #                    % self.__class__.__name__)
         try:
             # Get the single item from the filtered queryset
             obj = queryset.get()
@@ -46,9 +48,11 @@ class SeasonDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(SeasonDetail, self).get_context_data(**kwargs)
         obj = self.get_object()
-        group_round = obj.group_rounds.last()
-        groups = group_round.groups.all().prefetch_related('players')
-        context['groups'] = groups
+
+        if obj is not None:
+            group_round = obj.group_rounds.last()
+            groups = group_round.groups.all().prefetch_related('players')
+            context['groups'] = groups
 
         return context
 
