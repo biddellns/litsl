@@ -141,7 +141,13 @@ STATICFILES_DIRS = [
 # For allauth
 SITE_ID = 1
 
-ACCOUNT_USERNAME_VALIDATORS="socialaccount.providers.battlenet.validators.BattletagUsernameValidator"
+SOCIALACCOUNT_PROVIDERS = {
+        'battlenet': {
+            'SCOPE': ['sc2.profile']
+            }
+        }
+
+ACCOUNT_USERNAME_VALIDATORS = 'litsl.settings.username_validators.validator_list'
 
 # Logging because debugging
 LOGGING = {
