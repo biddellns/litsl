@@ -147,6 +147,8 @@ SOCIALACCOUNT_PROVIDERS = {
             }
         }
 
+ACCOUNT_USERNAME_VALIDATORS = 'litsl.settings.username_validators.validator_list'
+
 # Logging because debugging
 LOGGING = {
     'version': 1,
