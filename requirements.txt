@@ -6,6 +6,7 @@ Django==1.10.2
 django-allauth==0.30.0
 django-battlenet==0.0.3
 django-debug-toolbar==1.6
+django-singleactiveobject==0.9.1
 django-widget-tweaks==1.4.1
 Gecko==1.0.19
 gunicorn==19.6.0
