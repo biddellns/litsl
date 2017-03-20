@@ -148,6 +148,7 @@ SOCIALACCOUNT_PROVIDERS = {
         }
 
 ACCOUNT_USERNAME_VALIDATORS = 'litsl.settings.username_validators.validator_list'
+SOCIALACCOUNT_ADAPTER = 'players.adapter.MyPlayerAdapter'
 
 # Logging because debugging
 LOGGING = {
