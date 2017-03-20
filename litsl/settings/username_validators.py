@@ -1,3 +1,3 @@
-from allauth.socialaccount.providers.battlnet import validators
+from allauth.socialaccount.providers.battlenet import validators
 
 validator_list = [ validators.BattletagUsernameValidator, ] 
