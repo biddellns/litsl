@@ -116,4 +116,4 @@ class Player(models.Model):
         return record
 
     def __str__(self):
-        return '{}#{}'.format(self.bnet_name, self.bnet_id)
+        return '{}'.format(self.sc2_name)
