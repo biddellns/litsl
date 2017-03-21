@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
+{% block titlecontent %}
+	LiT Starleague | Profile
+{% endblock %}
 {% block content %}
-<p>{{player.bnet_name}}#{{player.bnet_id}}</p>
-<p>{{player.race}}</p>
-<p>{{player.league}}</p>
+<div class="row">
+	<p>{{player.sc2_name}}</p>
+	<p>{{player.league}}</p>
+	<p>{{player.ladder_games_played}}</p>
+</div>
 {% endblock %} 

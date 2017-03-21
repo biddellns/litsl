@@ -21,9 +21,6 @@ RACES = (
 
 class Player(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, blank = True, null = True) # Connects a site SC2 profile to a Django User object.
-
-    bnet_name = models.CharField("Battle.net Username", max_length = 30)
-    bnet_id = models.IntegerField("Battle.net ID")
     bnet_profile_url = models.URLField("Battle.net Profile URL",
             validators = [
                     RegexValidator(
@@ -31,13 +28,13 @@ class Player(models.Model):
                         message="This doesn't appear to be a valid profile link.",
                         code='Invalid URL'
                         ),
-                ]
+                ],
+                null = True
             )
-    discord_name = models.CharField("Discord Username", max_length = 30)
+    discord_name = models.CharField("Discord Username", max_length = 30, null = True)
     sc2_name = models.CharField(max_length = 30, null = True)
-    sc2_id = models.IntegerField(null = True)
     league = models.CharField(max_length = 1, choices = LEAGUE_LEVELS)
-    race = models.CharField(max_length = 1, choices = RACES)
+    race = models.CharField(max_length = 1, choices = RACES, null = True)
     ladder_games_played = models.IntegerField(blank = True, null = True)
     team = models.CharField(max_length = 30)
 
@@ -119,4 +116,4 @@ class Player(models.Model):
         return record
 
     def __str__(self):
-        return '{}#{}'.format(self.bnet_name, self.bnet_id)
+        return '{}'.format(self.sc2_name)

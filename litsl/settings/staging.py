@@ -44,6 +44,4 @@ SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 #all auth
-SITE_ID=3
-
-ACCOUNT_USERNAME_VALIDATORS = 'players.validators.username_validators' # Thanks to alexstacey for this one.
+SITE_ID = 3
