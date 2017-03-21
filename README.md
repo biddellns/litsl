@@ -6,19 +6,25 @@ Django web app to manage SC2 leagues modeled off the GSL format.
 This application relies on environment variables for secret settings. You will need to initialize:
 
 **Django Settings** 
-- DJANGO_SETTINGS_MODULE *(Recommended: litsl.settings.local)*
-- SECRET_KEY
-- ALLOWED_HOSTS *(Recommended: "'127.0.0.1', 'localhost'")*
-
-**If using PostgreSQL**
-- DB_NAME
-- DB_USER
-- DB_USER_PW
+```
+DJANGO_SETTINGS_MODULE *(Recommended: litsl.settings.local)*
+SECRET_KEY
+ALLOWED_HOSTS *(Recommended: "'127.0.0.1', 'localhost'")*
+```
 
 **To use Battle.net API with Django-Allauth**
-- BNET_KEY
-- BNET_SECRET
-- BNET_REDIRECT_URI_Base *(Your site)*
+```
+BNET_KEY
+BNET_SECRET
+BNET_REDIRECT_URI_Base *(Your site)*
+```
+
+**If using PostgreSQL**
+```
+DB_NAME
+DB_USER
+DB_USER_PW
+```
 
 ## Libraries 
 - [Django Allauth](https://github.com/pennersr/django-allauth)
