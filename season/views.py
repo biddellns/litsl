@@ -25,30 +25,47 @@ class SeasonDetail(DetailView):
         if pk is not None:
             queryset = queryset.filter(pk=pk)
         else:
-            pk = queryset.last() # Most recent season.
+            if queryset.count() > 0:
+                pk = queryset.filter(active = True)
+            else:
+                pk = queryset.last() # active season.
         # Next, try looking up by slug.
         if slug is not None and (pk is None or self.query_pk_and_slug):
             slug_field = self.get_slug_field()
             queryset = queryset.filter(**{slug_field: slug})    
-        # If none of those are defined, it's an error.
+        # If none of those are defined, display a 'coming soon' type message.
         if pk is None and slug is None:
-            raise AttributeError("Generic detail view %s must be called with "
-                                "either an object pk or a slug."
-                                % self.__class__.__name__)
+            self.template_name='seasons/no-active-season.html'
+            return
+            #raise AttributeError("Generic detail view %s must be called with "
+            #                    "either an object pk or a slug."
+            #                    % self.__class__.__name__)
         try:
             # Get the single item from the filtered queryset
             obj = queryset.get()
+
+            if obj.state == 'pre':
+                self.template_name = 'seasons/preseason.html'
+            
+            if obj.state == 'post':
+                self.template_name = 'seasons/bracket.html'
+
         except queryset.model.DoesNotExist:
             raise Http404(_("No %(verbose_name)s found matching the query") %
                          {'verbose_name': queryset.model._meta.verbose_name})
+        
         return obj
 
     def get_context_data(self, **kwargs):
         context = super(SeasonDetail, self).get_context_data(**kwargs)
         obj = self.get_object()
-        group_round = obj.group_rounds.last()
-        groups = group_round.groups.all().prefetch_related('players')
-        context['groups'] = groups
+
+        if obj is not None:
+            group_round = obj.group_rounds.last()
+
+            if group_round is not None:
+                groups = group_round.groups.all().prefetch_related('players')
+                context['groups'] = groups
 
         return context
 
