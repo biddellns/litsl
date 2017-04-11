@@ -17,4 +17,17 @@
    become: true
    pip: "name={{ item }} executable=/usr/bin/pip3"
    with_items:
-              - mkvirtualenv   
+              - mkvirtualenv  
+
+ - name: Add config settings to .bashrc
+   lineinfile:
+      dest=~/.bashrc
+      regexp="^export WORKON_HOME=$HOME/.virtualenvs\n
+               export PROJECT_HOME=$HOME/Devel\n
+               source /usr/local/bin/virtualenvwrapper.sh"
+      state=present
+      insertafter=EOF
+      line="export WORKON_HOME=$HOME/.virtualenvs\n
+             export PROJECT_HOME=$HOME/Devel\n
+             source /usr/local/bin/virtualenvwrapper.sh"
+    
