@@ -11,5 +11,10 @@
               - postgresql
               - postgresql-contrib
               - nginx
-   tags:
-     - packages
+   tags: packages
+
+ - name: Install mkvirtualenv
+   become: true
+   pip: "name={{ item }} executable=/usr/bin/pip3"
+   with_items:
+              - mkvirtualenv   
