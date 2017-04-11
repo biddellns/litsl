@@ -5,17 +5,11 @@
    become: true
    apt: "name={{ item }} update_cache=yes state=installed"
    with_items:
-              python3-pip
-              python3-dev
-              libpq-dev
-              postgresql
-              postgresql-contrib
-              nginx
+              - python3-pip
+              - python3-dev
+              - libpq-dev
+              - postgresql
+              - postgresql-contrib
+              - nginx
    tags:
-      packages
-
-
- - name: Do stuff
-   become: true
-   apt:
-    - name: python-psycopg2
+     - packages
