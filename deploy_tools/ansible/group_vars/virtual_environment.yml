@@ -1,0 +1,3 @@
+virtualenv_dir: "~/.virtualenvs/"
+venv_name: "litsl"
+python_version: "3.4"

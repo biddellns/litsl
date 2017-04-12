@@ -1,5 +1,8 @@
 ---
 
+ - name: Include group vars
+   include_vars:
+      file: "../../group_vars/virtual_environment.yml"
 
  - name: Install minimum dependencies
    become: true
@@ -19,15 +22,20 @@
    with_items:
               - mkvirtualenv  
 
- - name: Add config settings to .bashrc
-   lineinfile:
-      dest=~/.bashrc
-      regexp="^export WORKON_HOME=$HOME/.virtualenvs\n
-               export PROJECT_HOME=$HOME/Devel\n
-               source /usr/local/bin/virtualenvwrapper.sh"
-      state=present
-      insertafter=EOF
-      line="export WORKON_HOME=$HOME/.virtualenvs\n
-             export PROJECT_HOME=$HOME/Devel\n
-             source /usr/local/bin/virtualenvwrapper.sh"
-    
+ - name: Add mkvirtualenv settings to .bashrc
+   blockinfile:
+      dest: ~/.bashrc
+      insertafter: EOF
+      block: | 
+             export WORKON_HOME=$HOME/.virtualenvs
+             export PROJECT_HOME=$HOME/Devel
+             source /usr/local/bin/virtualenvwrapper.sh
+      backup: yes    
+
+ - name: Create virtual environment
+   shell: "./usr/local/bin/virtualenvwrapper.sh && mkvirtualenv {{ venv_name }} --python={{ python_version }} --no-site-packages"
+   args: 
+      executable: /bin/bash
+      creates: "{{ virtualenv_dir }}/{{ venv_name}}"
+   register: mkvirtualenv
+   failed_when: 'mkvirtualenv.changed and "New python executable" not found in mkvirtualenv.stdout'
