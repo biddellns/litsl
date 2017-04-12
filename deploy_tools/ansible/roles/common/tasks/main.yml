@@ -14,9 +14,10 @@
               - postgresql
               - postgresql-contrib
               - nginx
+              - git
    tags: packages
 
- - name: Install mkvirtualenv
+ - name: Install mkvirtualenv with pip3
    become: true
    pip: "name={{ item }} executable=/usr/bin/pip3"
    with_items:
@@ -39,3 +40,18 @@
       creates: "{{ virtualenv_dir }}/{{ venv_name}}"
    register: mkvirtualenv
    failed_when: 'mkvirtualenv.changed and "New python executable" not found in mkvirtualenv.stdout'
+
+ - name: Create project folders
+   file: 
+      path=~/sites/{{item.0}}/{{item.1}} 
+      state=directory
+      recurse=yes
+   with_nested:
+      - ["{{ project_root }}"]
+      - ["{{project_source_folder}}", "{{ project_static_folder }}" ]
+ 
+ - name: Clone git repo
+   git:
+     repo: 'https://github.com/biddellns/litsl.git'
+     dest: "~/sites/{{ project_root }}/{{project_source_folder}}"
+     version: dev
