@@ -21,25 +21,27 @@
    become: true
    pip: "name={{ item }} executable=/usr/bin/pip3"
    with_items:
-              - mkvirtualenv  
+              - virtualenvwrapper  
 
  - name: Add mkvirtualenv settings to .bashrc
    blockinfile:
-      dest: ~/.bashrc
+      dest: ~/.bashrc_ansible
+      create: yes
       insertafter: EOF
       block: | 
+             export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
              export WORKON_HOME=$HOME/.virtualenvs
              export PROJECT_HOME=$HOME/Devel
              source /usr/local/bin/virtualenvwrapper.sh
       backup: yes    
 
  - name: Create virtual environment
-   shell: "./usr/local/bin/virtualenvwrapper.sh && mkvirtualenv {{ venv_name }} --python={{ python_version }} --no-site-packages"
+   shell: "/usr/local/bin/virtualenvwrapper.sh && mkvirtualenv {{ venv_name }} --python={{ python_version }} --no-site-packages"
    args: 
       executable: /bin/bash
       creates: "{{ virtualenv_dir }}/{{ venv_name}}"
    register: mkvirtualenv
-   failed_when: 'mkvirtualenv.changed and "New python executable" not found in mkvirtualenv.stdout'
+   failed_when: "'New python executable' not in mkvirtualenv.stdout"
 
  - name: Create project folders
    file: 
@@ -55,3 +57,9 @@
      repo: 'https://github.com/biddellns/litsl.git'
      dest: "~/sites/{{ project_root }}/{{project_source_folder}}"
      version: dev
+
+ - name: Install repo dependencies
+   pip: 
+      executable: /usr/bin/pip3
+      requirements: "~/sites/{{ project_root }}/{{ project_source_folder }}/requirements.txt"
+      virtualenv: "{{ virtualenv_dir }}/{{ venv_name }}"

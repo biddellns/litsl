@@ -1,3 +1,3 @@
-project_root: 'litsl_com'
-project_source_folder: 'source'
+project_root: 'ansible_litsl_com'
+project_source_folder: '_source'
 project_static_folder: 'static'

@@ -1,3 +1,3 @@
 virtualenv_dir: "~/.virtualenvs/"
-venv_name: "litsl"
-python_version: "3.4"
+venv_name: litsl_ansible
+python_version: /usr/bin/python3
