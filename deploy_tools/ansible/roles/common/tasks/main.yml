@@ -17,11 +17,6 @@
               - git
    tags: packages
 
- - name: Install mkvirtualenv with pip3
-   become: true
-   pip: "name={{ item }} executable=/usr/bin/pip3"
-   with_items:
-              - virtualenvwrapper  
 
  - name: Add mkvirtualenv settings to .bashrc
    blockinfile:
@@ -34,14 +29,6 @@
              export PROJECT_HOME=$HOME/Devel
              source /usr/local/bin/virtualenvwrapper.sh
       backup: yes    
-
- - name: Create virtual environment
-   shell: "/usr/local/bin/virtualenvwrapper.sh && mkvirtualenv {{ venv_name }} --python={{ python_version }} --no-site-packages"
-   args: 
-      executable: /bin/bash
-      creates: "{{ virtualenv_dir }}/{{ venv_name}}"
-   register: mkvirtualenv
-   failed_when: "'New python executable' not in mkvirtualenv.stdout"
 
  - name: Create project folders
    file: 
@@ -58,8 +45,16 @@
      dest: "~/sites/{{ project_root }}/{{project_source_folder}}"
      version: dev
 
+ - name: Install virtualenvwrapper with pip
+   become: true
+   pip: 
+      name: virtualenvwrapper
+      virtualenv: /elspeth/home/venvs/testenv
+      virtualenv_python: python3.4 
+
  - name: Install repo dependencies
    pip: 
-      executable: /usr/bin/pip3
       requirements: "~/sites/{{ project_root }}/{{ project_source_folder }}/requirements.txt"
       virtualenv: "{{ virtualenv_dir }}/{{ venv_name }}"
+      virtualenv_command: /usr/bin/python3.4 -m venv
+
