@@ -1,0 +1,61 @@
+---
+
+ - name: Include group vars
+   include_vars:
+      file: "../../group_vars/virtual_environment.yml"
+
+ - name: Install minimum dependencies
+   become: true
+   apt: "name={{ item }} update_cache=yes state=installed"
+   with_items:
+              - python3-pip
+              - python3-dev
+              - libpq-dev
+              - postgresql
+              - postgresql-contrib
+              - nginx
+              - git
+   tags: packages
+
+
+ - name: Add mkvirtualenv settings to .bashrc
+   blockinfile:
+      dest: ~/.bashrc_ansible
+      create: yes
+      insertafter: EOF
+      block: | 
+             export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+             export WORKON_HOME=$HOME/.virtualenvs
+             export PROJECT_HOME=$HOME/Devel
+             source /usr/local/bin/virtualenvwrapper.sh
+      backup: yes    
+
+ - name: Create project folders
+   file: 
+      path=~/sites/{{item.0}}/{{item.1}} 
+      state=directory
+      recurse=yes
+   with_nested:
+      - ["{{ project_root }}"]
+      - ["{{project_source_folder}}", "{{ project_static_folder }}" ]
+ 
+ - name: Clone git repo
+   git:
+     repo: 'https://github.com/biddellns/litsl.git'
+     dest: "~/sites/{{ project_root }}/{{project_source_folder}}"
+     version: dev
+
+ - name: Install virtualenvwrapper with pip
+   become: true
+   pip: 
+      name: virtualenvwrapper
+      virtualenv: /elspeth/home/venvs/testenv
+      virtualenv_python: python3.4 
+
+ - name: Install repo dependencies
+   become: true
+   pip: 
+      requirements: "~/sites/{{ project_root }}/{{ project_source_folder }}/requirements.txt"
+      virtualenv: "{{ virtualenv_dir }}{{ venv_name }}"
+      virtualenv_command: /usr/bin/python3.4 -m venv --without-pip 
+
