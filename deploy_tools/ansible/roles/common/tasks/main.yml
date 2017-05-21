@@ -53,8 +53,9 @@
       virtualenv_python: python3.4 
 
  - name: Install repo dependencies
+   become: true
    pip: 
       requirements: "~/sites/{{ project_root }}/{{ project_source_folder }}/requirements.txt"
-      virtualenv: "{{ virtualenv_dir }}/{{ venv_name }}"
-      virtualenv_command: /usr/bin/python3.4 -m venv
+      virtualenv: "{{ virtualenv_dir }}{{ venv_name }}"
+      virtualenv_command: /usr/bin/python3.4 -m venv --without-pip 
 
